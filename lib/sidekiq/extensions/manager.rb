@@ -1,7 +1,8 @@
 class Sidekiq::Manager
   module InitLimitFetch
     def initialize(options={})
-      options[:fetch] = Sidekiq::LimitFetch
+      config = defined?(Sidekiq::Capsule) && options.is_a?(Sidekiq::Capsule) ? options.config : options
+      config[:fetch] = Sidekiq::LimitFetch
       super
     end
 

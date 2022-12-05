@@ -4,6 +4,7 @@ module Sidekiq::LimitFetch::Queues
   THREAD_KEY = :acquired_queues
 
   def start(options)
+    options = options.config if defined?(Sidekiq::Capsule) && options.is_a?(Sidekiq::Capsule)
     @queues         = options[:queues]
     @startup_queues = options[:queues].dup
     @dynamic        = options[:dynamic]
